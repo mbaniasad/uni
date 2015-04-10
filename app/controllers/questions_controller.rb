@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  layout 'flatly'
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
   # GET /questions
@@ -15,6 +16,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @question = Question.new
+    @question.course_id = params[:course_id] if params[:course_id]
     @question.index_number = latest_index_number + 1
   end
 
@@ -29,7 +31,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to Question, notice: 'Question was successfully created.' }
+        format.html { redirect_to @question.course, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
         format.html { render :new }
@@ -43,7 +45,7 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        format.html { redirect_to @question.course, notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
         format.html { render :edit }
