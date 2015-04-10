@@ -1,5 +1,8 @@
-%h1 New question
+%br
+%h3
+  ="New question for"
+  ="#{ @question.course.name}"
 
 = render 'form'
 
-= link_to 'Back', questions_path
+= link_to 'Back to course', @question.course, class:"btn btn-info"

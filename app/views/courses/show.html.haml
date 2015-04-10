@@ -1,11 +1,6 @@
 - model_class = Course
 .page-header
-  %h1=t '.title', :default => model_class.model_name.human.titleize
-
-%p
-  %strong= model_class.human_attribute_name(:name) + ':'
-  %br
-  = @course.name
+  %h1=@course.name
 
 
 = link_to t('.back', :default => t("helpers.links.back")), courses_path, :class => 'btn btn-default'
@@ -14,16 +9,16 @@
 
 = link_to 'New Question', new_question_path(course_id:@course.id), :class => 'btn btn-success'
 %table{class:"table table-striped table-hover"}
-  %tr
-    %th Course
+  %tr{class:"info"}
+    %th index
     
     %th Question
     %th Answer
     %th
    
-  - @course.questions.order(created_at: :desc).each do |question|
+  - @course.questions.order(index_number: :desc).each do |question|
     %tr
-      %td= question.course_id.to_s + '.' + question.chapter.to_s
+      %td=  question.index_number.to_s
       
       %td= link_to question.question, edit_question_path(question)
       %td= raw question.answer
