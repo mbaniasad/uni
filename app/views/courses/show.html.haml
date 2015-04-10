@@ -1,0 +1,35 @@
+- model_class = Course
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human.titleize
+
+%p
+  %strong= model_class.human_attribute_name(:name) + ':'
+  %br
+  = @course.name
+
+
+= link_to t('.back', :default => t("helpers.links.back")), courses_path, :class => 'btn btn-default'
+= link_to t('.edit', :default => t("helpers.links.edit")), edit_course_path(@course), :class => 'btn btn-default'
+= link_to t('.destroy', :default => t("helpers.links.destroy")), course_path(@course), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+
+= link_to 'New Question', new_question_path, class:"btn"
+%table
+  %tr
+    %th Course
+    %th Number
+    %th Question
+    %th Answer
+    %th
+    %th
+    %th
+
+  - @course.questions.order(created_at: :desc).each do |question|
+    %tr
+      %td= question.course_id.to_s + '.' + question.chapter.to_s
+      %td= question.index_number
+      %td= link_to question.question, edit_question_path(question)
+      %td= raw question.answer
+      %td= link_to 'Show', question
+      %td= link_to 'Edit', edit_question_path(question)
+      %td= link_to 'Destroy', question, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
