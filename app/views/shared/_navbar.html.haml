@@ -73,7 +73,4 @@
             %li
               %a{:href => "./_bootswatch.scss"} _bootswatch.scss
       %ul.nav.navbar-nav.navbar-right
-        %li
-          Mo's studing :) software
-        %li
-          %a{:href => "https://wrapbootstrap.com/?ref=bsw", :target => "_blank"} WrapBootstrap
+        =yield (:page_actions) if content_for?(:page_actions)

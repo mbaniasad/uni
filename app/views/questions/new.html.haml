@@ -4,5 +4,5 @@
   ="#{ @question.course.name}"
 
 = render 'form'
-
-= link_to 'Back to course', @question.course, class:"btn btn-info"
+=content_for :page_actions do
+  %li= link_to 'Back to course', @question.course, class:"btn btn-info"

@@ -25,9 +25,14 @@
       = f.label :index_number, class:"control-label"
       = f.text_field :index_number, class:"form-control"
       = f.submit 'Save',  class:"btn btn-primary"
+=content_for :page_actions do
+  %li= link_to "save", "#", :id => "nav_save_question"
+
 =content_for :page_javascript do
   :javascript
     $( document ).ready(function(){
       $("#question_question").focus();
-
+      $("#nav_save_question").click(function(){
+        $("#new_question").submit();
+      })
     });

@@ -76,6 +76,6 @@ class QuestionsController < ApplicationController
     end
 
     def latest_index_number
-      Question.last.index_number.split('.').last.to_i
+      Question.last.index_number + 0.01
     end
 end
