@@ -4,5 +4,9 @@
   ="#{ @question.course.name}"
 
 = render 'form'
+.well.previous-question
+  %h5 previous question
+  -q = Question.last
+  = q.index_number.to_s + "- " + q.question
 =content_for :page_actions do
   %li= link_to 'Back to course', @question.course, class:"btn btn-info"
