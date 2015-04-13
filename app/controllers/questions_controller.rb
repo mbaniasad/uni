@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     @question.course_id = params[:course_id] if params[:course_id]
-    @question.index_number = latest_index_number + 1
+    @question.index_number = latest_index_number + 0.01
   end
 
   # GET /questions/1/edit
@@ -76,6 +76,6 @@ class QuestionsController < ApplicationController
     end
 
     def latest_index_number
-      Question.last.index_number + 0.01
+      Question.last.index_number 
     end
 end

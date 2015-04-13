@@ -32,7 +32,8 @@ gem 'twitter-bootswatch-rails', '~> 3.3.2'
 
 # twitter bootstrap helpers gem, e.g., alerts etc...
 gem 'twitter-bootswatch-rails-helpers'
-gem 'ckeditor_rails', '~> 4.4.6'
+gem 'ckeditor'
+gem 'paperclip'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
