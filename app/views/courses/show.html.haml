@@ -13,7 +13,7 @@
     %th Question
     %th Answer
     %th
-  -chapterno=3
+  -chapterno=5
   - @course.questions.where("index_number >= #{chapterno} and index_number < #{chapterno+1}").order(index_number: :asc).each do |question|
     %tr
       %td=  question.index_number.to_s
