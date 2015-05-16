@@ -13,8 +13,9 @@
     %th Question
     %th Answer
     %th
-  -chapterno=5
-  - @course.questions.where("index_number >= #{chapterno} and index_number < #{chapterno+1}").order(index_number: :asc).each do |question|
+  -chapterno=999
+  -#@course.questions.where("chapter >= #{chapterno} and chapter < #{chapterno+1}").order(index_number: :desc).each do |question|
+  - @course.questions.all.order(index_number: :asc).each do |question|
     %tr
       %td=  question.index_number.to_s
       

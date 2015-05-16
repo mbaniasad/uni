@@ -17,10 +17,10 @@
       = f.text_area :answer, class:"long_text_field", :class => 'ckeditor'
     .form-group
       = f.label :course_id, class:"control-label"
-      = f.text_field :course_id, value:1, class:"form-control"
+      = f.collection_select(:course_id, Course.all, :id, :name, {},{class:"form-control"})
     .form-group  
       = f.label :chapter, class:"control-label"
-      = f.text_field :chapter, value:(@question.chapter || 10) , class:"form-control"
+      = f.text_field :chapter, value:(@question.chapter || 999) , class:"form-control"
     .form-group  
       = f.label :index_number, class:"control-label"
       = f.text_field :index_number, class:"form-control"
