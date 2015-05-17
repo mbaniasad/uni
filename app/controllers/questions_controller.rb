@@ -17,7 +17,14 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     @question.course_id = params[:course_id] if params[:course_id]
-    @question.index_number = latest_index_number + 0.01
+    @prev_question = @question.course.questions.last
+    if @prev_question.present?
+      @question.index_number = @prev_question.index_number + 0.01
+      @question.chapter = @prev_question.chapter
+    else
+      @question.index_number = 0
+      @question.chapter = 1
+    end
   end
 
   # GET /questions/1/edit
