@@ -7,6 +7,6 @@
 .well.previous-question
   %h5 previous question
   -q = Question.last
-  = q.index_number.to_s + "- " + q.question
+  =link_to q.index_number.to_s + "- " + q.question, q if q.present?
 =content_for :page_actions do
   %li= link_to 'Back to course', @question.course, class:"btn btn-info"
