@@ -6,21 +6,25 @@
 
 
 = link_to 'New Question', new_question_path(course_id:@course.id), :class => 'btn btn-success'
+= link_to 'show all',course_path(@course.id, chapter:"all"), :class => 'btn btn-success'
+= link_to 'answerd',course_path(@course.id, answerd:"true"), :class => 'btn btn-success'
+= link_to 'unanswerd',course_path(@course.id, answerd:"false"), :class => 'btn btn-success'
+-@chapternumbers.each do |chno|
+  = link_to chno,course_path(@course.id, chapter:chno), :class => 'btn btn-success'
 %table{class:"table table-striped table-hover"}
   %tr{class:"info"}
     %th index
     %th Question
     %th Answer
     %th
-  -chapterno=999
-  -#@course.questions.where("chapter >= #{chapterno} and chapter < #{chapterno+1}").order(index_number: :desc).each do |question|
-  - @course.questions.all.order(chapter: :asc,index_number: :asc).each do |question|
-    %tr
-      %td= "#{question.chapter}-#{question.index_number.to_s}"
 
-      %td= link_to question.question, edit_question_path(question)
-      %td= raw question.answer
-      %td= link_to 'Destroy', question, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    -@chapter_questions.each do |question|# @course.questions.all.order(chapter: :asc,index_number: :asc).each do |question|
+      %tr
+        %td= "#{question.chapter}-#{question.index_number.to_s}"
+
+        %td= link_to question.question, edit_question_path(question)
+        %td= raw question.answer
+        %td= link_to 'Destroy', question, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 = link_to t('.back', :default => t("helpers.links.back")), courses_path, :class => 'btn btn-default'
 = link_to t('.edit', :default => t("helpers.links.edit")), edit_course_path(@course), :class => 'btn btn-default'

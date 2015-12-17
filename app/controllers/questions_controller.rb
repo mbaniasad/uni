@@ -52,7 +52,7 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question.course, notice: 'Question was successfully updated.' }
+        format.html { redirect_to course_path(@question.course, chapter: 3), notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
         format.html { render :edit }
@@ -83,6 +83,6 @@ class QuestionsController < ApplicationController
     end
 
     def latest_index_number
-      Question.last.index_number 
+      Question.last.index_number
     end
 end

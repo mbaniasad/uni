@@ -1,3 +1,4 @@
+-q = Question.last
 %br
 %h3
   ="New question for"
@@ -6,7 +7,7 @@
 = render 'form'
 .well.previous-question
   %h5 previous question
-  -q = Question.last
-  =link_to q.index_number.to_s + "- " + q.question, q if q.present?
+
+  =link_to q.index_number.to_s + "- " + q.question, edit_question_path(q) if q.present?
 =content_for :page_actions do
   %li= link_to 'Back to course', @question.course, class:"btn btn-info"

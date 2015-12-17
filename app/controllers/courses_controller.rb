@@ -11,6 +11,20 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    chapterno = params[:chapter]|| "all"
+    chapterno = chapterno.to_i
+    @chapter_questions = (chapterno == 0 ? @course.questions : @course.questions.where("chapter >= #{chapterno} and chapter < #{chapterno+1}").order(index_number: :asc))
+
+    answerd = params[:answerd]|| "all"
+    if answerd == "false"
+      @chapter_questions = @chapter_questions.where("answer is null or answer=''")
+    elsif answerd == "true"
+      @chapter_questions = @chapter_questions.where("answer is not null or answer<>''")
+    end
+
+    @chapter_questions.order(index_number: :desc)
+    @chapternumbers = @course.questions.collect(&:chapter).uniq
+
   end
 
   # GET /courses/new
