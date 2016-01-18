@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
-  resources :courses
+  resources :courses do
+    get 'update_chapter_numbers'
+  end
 
   resources :questions
   # The priority is based upon order of creation: first created -> highest priority.

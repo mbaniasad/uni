@@ -33,3 +33,4 @@ bower.json
 
 # Ignore pow environment settings
 /public/ckeditor_assets/*
+/vendor

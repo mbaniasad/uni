@@ -1,7 +1,6 @@
 class CoursesController < ApplicationController
   layout 'flatly'
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-
   # GET /courses
   # GET /courses.json
   def index
@@ -13,8 +12,8 @@ class CoursesController < ApplicationController
   def show
     chapterno = params[:chapter]|| "all"
     chapterno = chapterno.to_i
-    @chapter_questions = (chapterno == 0 ? @course.questions : @course.questions.where("chapter >= #{chapterno} and chapter < #{chapterno+1}").order(index_number: :asc))
-
+    @chapter_questions = (chapterno == 0 ? @course.questions : @course.questions.where("chapter >= #{chapterno} and chapter < #{chapterno+1}").order(index_number: :desc))
+    @chapternumbers = @course.questions.collect(&:chapter).uniq
     answerd = params[:answerd]|| "all"
     if answerd == "false"
       @chapter_questions = @chapter_questions.where("answer is null or answer=''")
@@ -23,7 +22,7 @@ class CoursesController < ApplicationController
     end
 
     @chapter_questions.order(index_number: :desc)
-    @chapternumbers = @course.questions.collect(&:chapter).uniq
+
 
   end
 
@@ -66,6 +65,21 @@ class CoursesController < ApplicationController
     end
   end
 
+  def update_chapter_numbers
+    @course = Course.find(params[:course_id])
+    chapterno = params[:chapter]|| "all"
+    chapterno = chapterno.to_i
+    @chapternumbers = @course.questions.collect(&:chapter).uniq
+
+    @chapter_questions = (chapterno == 0 ? @course.questions : @course.questions.where("chapter >= #{chapterno} and chapter < #{chapterno.to_i+1}").order(index_number: :asc))
+    questionsCounter = 1
+    @chapter_questions.each do |question|
+      question.update_attribute(:index_number, questionsCounter)
+      puts question.index_number, questionsCounter
+      questionsCounter+=1
+    end
+    render :show
+  end
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
@@ -81,6 +95,7 @@ class CoursesController < ApplicationController
     def set_course
       @course = Course.find(params[:id])
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
