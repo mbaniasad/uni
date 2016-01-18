@@ -13,7 +13,10 @@
 
 ActiveRecord::Schema.define(version: 20150413085502) do
 
-  create_table "ckeditor_assets", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",               null: false
     t.string   "data_content_type"
     t.integer  "data_file_size"
@@ -26,17 +29,24 @@ ActiveRecord::Schema.define(version: 20150413085502) do
     t.datetime "updated_at"
   end
 
-  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
-  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
-  create_table "courses", force: true do |t|
+  create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "chapter"
   end
 
-# Could not dump table "questions" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "questions", force: :cascade do |t|
+    t.string   "question"
+    t.string   "answer"
+    t.string   "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "chapter"
+    t.float    "index_number"
+  end
 
 end

@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.2.5'
 gem 'haml-rails'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -47,3 +47,5 @@ gem 'paperclip'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'rails_12factor'
+ruby "2.2.0"
