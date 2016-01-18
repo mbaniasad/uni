@@ -48,4 +48,4 @@ gem 'paperclip'
 # gem 'debugger', group: [:development, :test]
 
 gem 'rails_12factor'
-ruby "2.2.0"
+ruby "2.2.1"
